@@ -3,7 +3,7 @@ import requests
 
 import tarfile
 
-# 替换为你想要的 synset IDs
+# synset IDs
 synsets = ['n02352591', 'n02123045', 'n04465501']
 
 INPUT_TAR_DIR = './imagenet_data'       # 存放 .tar 文件的文件夹

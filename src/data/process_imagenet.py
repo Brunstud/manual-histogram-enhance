@@ -6,7 +6,7 @@ from tqdm import tqdm
 
 # 设置路径与参数
 EXTRACT_DIR = './extracted_images'      # 解压后的原始图像
-OUTPUT_DIR = './processed_images'       # 增强并统一尺寸后的图像
+OUTPUT_DIR = './processed_images-ref'       # 增强并统一尺寸后的图像
 HIST_DIR = os.path.join(OUTPUT_DIR, 'histograms')  # 直方图保存路径
 TARGET_SIZE = (256, 256)                # 图像标准化尺寸
 ENHANCE_MODE = ['equalize', 'clahe', 'stretch', 'gamma']
