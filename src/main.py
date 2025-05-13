@@ -1,6 +1,6 @@
 import os
 from utils.file_utils import list_image_files, ensure_dir
-from image_io import load_image_rgb, save_image_rgb, rgb_to_ycrcb, y_to_rgb
+from image_io import load_image_rgb, save_image_rgb, rgb_to_ycrcb, y_to_rgb, ycbcr_merge, resize_image_nearest, resize_image_bilinear
 from histogram import compute_histogram, render_histogram_image
 from enhancement import histogram_equalization, clahe_equalization, contrast_stretch, gamma_correction
 
@@ -15,6 +15,7 @@ ENHANCE_METHODS = {
 INPUT_DIR = './data/extracted_images'
 OUTPUT_DIR = './data/processed_images'
 HIST_DIR = os.path.join(OUTPUT_DIR, 'histograms')
+RESIZE = (256, 256)
 
 ensure_dir(OUTPUT_DIR)
 ensure_dir(HIST_DIR)
@@ -24,6 +25,7 @@ image_paths = list_image_files(INPUT_DIR)
 for path in image_paths:
     name = os.path.splitext(os.path.basename(path))[0]
     pixels = load_image_rgb(path)
+    pixels = resize_image_bilinear(pixels, RESIZE)
     y_channel = rgb_to_ycrcb(pixels)
 
     for mode, func in ENHANCE_METHODS.items():
@@ -46,7 +48,7 @@ for path in image_paths:
         hist_img_eq = render_histogram_image(hist_eq)
 
         # 合并为 RGB 输出图像
-        enhanced_rgb = y_to_rgb(y_enhanced)
+        enhanced_rgb = ycbcr_merge(y_enhanced, pixels)
         save_image_rgb(enhanced_rgb, os.path.join(out_dir, f'{name}.jpg'))
 
         # 保存直方图对比图像（灰度图合并或分别存）
