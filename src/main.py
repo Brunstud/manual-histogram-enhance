@@ -16,7 +16,7 @@ ENHANCE_METHODS = {
 INPUT_DIR = './data/extracted_images'
 OUTPUT_DIR = './data/processed_images'
 HIST_DIR = os.path.join(OUTPUT_DIR, 'histograms')
-RESIZE = (256, 256)
+RESIZE = (446, 446)
 
 ensure_dir(OUTPUT_DIR)
 ensure_dir(HIST_DIR)
